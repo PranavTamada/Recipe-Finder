@@ -35,13 +35,13 @@ function displayRecipes(recipes) {
         
         const recipeImage = recipe.image ? `<img src="${recipe.image}" alt="${recipe.title}">` : '';
         const recipeLink = `<a href="https://spoonacular.com/recipes/${recipe.title.replace(/\s+/g, '-')}-${recipe.id}" target="_blank">
-                                <button class="search-button">See Full Recipe</button>
+                                <button id="btn">See Full Recipe</button>
                             </a>`;
 
         recipeCard.innerHTML = `
             ${recipeImage}
-            <h3>${recipe.title}</h3>
-            <p>Ingredients used: ${recipe.usedIngredients.map(ingredient => ingredient.name).join(', ')}</p>
+            <h3 id = "title">${recipe.title}</h3>
+            <p id = "info">Ingredients used: ${recipe.usedIngredients.map(ingredient => ingredient.name).join(', ')}</p>
             ${recipeLink}
         `;
 
