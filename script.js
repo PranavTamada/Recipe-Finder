@@ -1,4 +1,4 @@
-const API_KEY = '76eb0d4236884058b084675d4fe93d49';  // Replace with your Spoonacular or Edamam API key
+const API_KEY = '76eb0d4236884058b084675d4fe93d49';  
 const API_URL = 'https://api.spoonacular.com/recipes/findByIngredients?apiKey=' + API_KEY;
 
 function getRecipes() {
@@ -22,7 +22,7 @@ function getRecipes() {
 
 function displayRecipes(recipes) {
     const recipesContainer = document.getElementById('recipes');
-    recipesContainer.innerHTML = '';  // Clear previous results
+    recipesContainer.innerHTML = ''; 
 
     if (recipes.length === 0) {
         recipesContainer.innerHTML = '<p>No recipes found. Try different ingredients!</p>';
