@@ -83,20 +83,20 @@
         }
 
         
-        .recipe-suggestions {
-    display: grid; /* Use CSS Grid */
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Adjust grid columns */
-    gap: 20px; /* Space between grid items */
+.recipe-suggestions {
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
     padding: 20px;
     margin-top: 40px;
-    justify-content: center; /* Center the grid */
+    justify-content: center;
 }
 .recipe-card {
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    width: 250px;      
+    width: 300px;      
     transition: transform 0.3s, box-shadow 0.3s;
 }
 
@@ -143,36 +143,40 @@
             display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 30px;
-  list-style-type: none;
+  list-style-type: none;
   justify-items:center;
 }
-#title{
+.title{
     text-align: center;
     font-size: 30px;
     color: #ff5722;
 }
-#info{
+.info{
     text-align: center;
     font-size: 20px;
     color: #ff5722;
 }
-#btn{
-    margin-top: 20px;
+.btn {
+    display: block; 
+    margin: 10px auto; 
     padding: 10px 20px;
     background-color: #ff5722;
     color: #fff;
     border: none;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
     border-radius: 30px;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s;
-    align-items:center;
+    text-align: center; 
 }
 
-#btn:hover{
+.btn:hover {
     background-color: #e64a19;
     transform: scale(1.05);
+}
+.link{
+    text-decoration: none;
 }
     </style>
 </head>
@@ -192,44 +196,33 @@
             </div>
         </nav>
         <main>
-            <br><br><br><br><br><br><br><br><br><br><br><br>
-            <div id="recipes"></div>
+            <div id="recipes" style="margin-top: 250px;"></div>
+            <hr style="margin-top: 30px;">
+            <h1 style="text-align: center;";">Most favoured dishes around the globe</h1>
             <section id="recipe-suggestions" class="recipe-suggestions">
                 <div class="recipe-card">
                     <img src="tomato-soup.jpg" alt="Tomato Soup">
                     <h3>Tomato Soup</h3>
-                    <p><span>Prep Time:</span> 30 mins</p>
-                    <p><span>Servings:</span> 4, <span>Calories:</span> 150</p>
+                    <p class="info">Ingredients used: tomatoes</p>
+                    <a href="https://spoonacular.com/recipes/Easy-Tomato-Soup-1674265" target="_blank" class="link">
+                        <button class="btn">See Full Recipe</button>
+                        </a>
                 </div>
                 <div class="recipe-card">
-                    <img src="spaghetti-carbonara.jpg" alt="Spaghetti Carbonara">
-                    <h3>Spaghetti Carbonara</h3>
-                    <p><span>Prep Time:</span> 25 mins</p>
-                    <p><span>Servings:</span> 2, <span>Calories:</span> 500</p>
+                    <img src="647681-556x370.jpg" alt="Hyderabadi Chicken Dum Biriyani">
+                    <h3>Hyderabadi Chicken Dum Biriyani</h3>
+                    <p class="info">Ingredients used: basmati rice, chicken biriyani masala, chicken</p>
+                    <a href="https://spoonacular.com/recipes/Hydrabadi-Dum-Biriyani-647681" target="_blank" class="link">
+                        <button class="btn">See Full Recipe</button>
+                        </a>
                 </div>
                 <div class="recipe-card">
-                    <img src="grilled-chicken.jpg" alt="Grilled Chicken">
-                    <h3>Grilled Chicken</h3>
-                    <p><span>Prep Time:</span> 40 mins</p>
-                    <p><span>Servings:</span> 2, <span>Calories:</span> 350</p>
-                </div>
-                <div class="recipe-card">
-                    <img src="garden-salad.jpg" alt="Garden Salad">
-                    <h3>Garden Salad</h3>
-                    <p><span>Prep Time:</span> 15 mins</p>
-                    <p><span>Servings:</span> 2, <span>Calories:</span> 200</p>
-                </div>
-                <div class="recipe-card">
-                    <img src="chocolate-cake.jpg" alt="Chocolate Cake">
-                    <h3>Chocolate Cake</h3>
-                    <p><span>Prep Time:</span> 45 mins</p>
-                    <p><span>Servings:</span> 8, <span>Calories:</span> 400</p>
-                </div>
-                <div class="recipe-card">
-                    <img src="veggie-stir-fry.jpg" alt="Veggie Stir-Fry">
-                    <h3>Veggie Stir-Fry</h3>
-                    <p><span>Prep Time:</span> 20 mins</p>
-                    <p><span>Servings:</span> 3, <span>Calories:</span> 200</p>
+                    <img src="scrambledegg.jpg" alt="Easy Cheesy Scrambled Eggs">
+                    <h3>Easy Cheesy Scrambled Eggs</h3>
+                    <p class="info">Ingredients used: eggs,bread,cheese</p>
+                    <a href="https://spoonacular.com/recipes/Easy-Cheesy-Scrambled-Eggs-641890" target="_blank" class="link">
+                        <button class="btn">See Full Recipe</button>
+                    </a>
                 </div>
             </section>
         </main>

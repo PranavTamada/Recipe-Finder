@@ -9,7 +9,7 @@ function getRecipes() {
         return;
     }
 
-    const url = `${API_URL}&ingredients=${ingredients.replace(/\s+/g, ',')}&number=10`;
+    const url = `${API_URL}&ingredients=${ingredients.replace(/\s+/g, ',')}&number=50`;
 
     fetch(url)
         .then(response => response.json())
@@ -34,14 +34,14 @@ function displayRecipes(recipes) {
         recipeCard.classList.add('recipe-card');
         
         const recipeImage = recipe.image ? `<img src="${recipe.image}" alt="${recipe.title}">` : '';
-        const recipeLink = `<a href="https://spoonacular.com/recipes/${recipe.title.replace(/\s+/g, '-')}-${recipe.id}" target="_blank">
-                                <button id="btn">See Full Recipe</button>
+        const recipeLink = `<a class = "link" href="https://spoonacular.com/recipes/${recipe.title.replace(/\s+/g, '-')}-${recipe.id}" target="_blank">
+                            <button class="btn">See Full Recipe</button>
                             </a>`;
 
         recipeCard.innerHTML = `
             ${recipeImage}
-            <h3 id = "title">${recipe.title}</h3>
-            <p id = "info">Ingredients used: ${recipe.usedIngredients.map(ingredient => ingredient.name).join(', ')}</p>
+            <h3 class = "title">${recipe.title}</h3>
+            <p class = "info">Ingredients used: ${recipe.usedIngredients.map(ingredient => ingredient.name).join(', ')}</p>
             ${recipeLink}
         `;
 
