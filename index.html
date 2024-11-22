@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>FridgeWizard</title>
+    <title>Recipe Genie</title>
     <style>
         html {
     scroll-behavior: smooth;
@@ -232,7 +232,16 @@
                     <li><a href="#recipe-suggestions">Recipes</a></li>
                 </ul>
                 <br><br><br><br><br><br><br><br>
-                <input id="ingredients" type="text" placeholder="Enter your ingredients" class="search-bar">
+                <input list="ingredients-list" id="ingredients" type="text" placeholder="Enter your ingredients" class="search-bar">
+                <datalist id="ingredients-list">
+                    <option value="Flour">
+                    <option value="Sugar">
+                    <option value="Coriander">
+                    <option value="Turmeric">
+                    <option value="Pepper">
+                    <option value="Tomato">
+                    <option value="Chicken">
+                  </datalist>
                 <button onclick="getRecipes()" class="search-button">Find Recipes</button>
             </div>
         </nav>
