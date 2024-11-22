@@ -36,7 +36,7 @@ In our website we are using an api https://api.spoonacular.com/recipes/ and usin
 
   ![ingredients](ingredients.png)
 
-> [!Cautions]
+> [!Caution]
 > The above api link can't be used unless we have a proper api key
 
 > [!Important]
