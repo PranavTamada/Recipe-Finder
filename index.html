@@ -3,16 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Recipe Genie</title>
     <style>
         html {
     scroll-behavior: smooth;
 }
         body {
+            cursor: none; /* Hides the default cursor */
             background-image: url("image 18.png");
             background-position: top;
             background-repeat: no-repeat;
-            background-size:auto;
+            background-size:contain;
             margin: 0;
             font-family: 'Roboto', Arial, sans-serif;
             color: #333;
@@ -83,7 +85,7 @@
         }
 
         
-.recipe-suggestions {
+        .recipe-suggestions {
     display: grid; 
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
@@ -178,10 +180,49 @@
 .link{
     text-decoration: none;
 }
+
+        /* Custom Cursor, Dot, and Image */
+.custom-cursor {
+    position: fixed; /* Fixed to viewport */
+    width: 45px;
+    height: 46px;
+    background-image: url('cursor 1.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    pointer-events: none;
+    z-index: 1000; /* Ensure it's above all elements */
+}
+
+.dot {
+    position: fixed; /* Fixed to viewport */
+    width: 8px;
+    height: 8px;
+    background-color: #fff;
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 999; /* Ensure it's just below the cursor */
+}
+
+.image {
+    position: fixed; /* Fixed to viewport */
+    width: 150px;
+    height: 150px;
+    background-size: cover;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    transition: transform 0.2s ease-out;
+    background-image: url('fruitbasket.png');
+    z-index: 998; /* Behind the cursor and dot but above content */
+}
+
     </style>
 </head>
-
 <body>
+    <!-- Custom Cursor, Dot -->
+    <div class="custom-cursor"></div>
+    <div class="dot"></div>
+
     <div class="recipe-genie-container">
         <nav>
             <div class="container">
@@ -235,6 +276,39 @@
             </section>
         </main>
     </div>
+
+    <script>
+        const customCursor = document.querySelector('.custom-cursor');
+        const dot = document.querySelector('.dot');
+        const image = document.querySelector('.image');
+
+        let dotX = 0, dotY = 0;
+        let imageX = 0, imageY = 0;
+
+        document.addEventListener('mousemove', (event) => {
+            const { clientX: x, clientY: y } = event;
+
+            customCursor.style.left = `${x}px`;
+            customCursor.style.top = `${y}px`;
+
+            dotX = x;
+            dotY = y;
+            dot.style.left = `${x}px`;
+            dot.style.top = `${y}px`;
+        });
+
+        function chaseDot() {
+            imageX += (dotX - imageX) * 0.1;
+            imageY += (dotY - imageY) * 0.1;
+
+            image.style.left = `${imageX}px`;
+            image.style.top = `${imageY}px`;
+
+            requestAnimationFrame(chaseDot);
+        }
+
+        chaseDot();
+    </script>
     <script src="script.js"></script>
 </body>
 </html>
