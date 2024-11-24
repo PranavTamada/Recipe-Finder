@@ -40,4 +40,4 @@ In our website we are using an api https://api.spoonacular.com/recipes/ and usin
 > The above api link can't be used unless we have a proper api key
 
 > [!Important]
-> This is our website for reference and checking the usage fridgewizard.netlify.app
+> This is our website for reference and checking the usage https://fridgewizard.netlify.app
