@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="logo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="logo.png" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FridgeWizard - Instructions</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background-color: #f8f8f8;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .instructions-container {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .instructions-container h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #ff5722;
+        }
+        
+        #recipe-title h2 {
+            text-align: center;
+            color: #444;
+        }
+
+        .instruction-step {
+            margin-bottom: 15px;
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+            background-color: #f9f9f9;
+            border-radius: 6px;
+        }
+
+        .instruction-step:last-child {
+            border-bottom: none;
+        }
+
+        .back-link {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        @media (max-width: 600px) {
+            .instructions-container {
+                margin: 15px;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="instructions-container">
+        <h1>Recipe Instructions</h1>
+        <div id="recipe-title"></div>
+        <div id="instructions">
+            <p>Loading instructions...</p>
+        </div>
+        <a href="index.html" class="btn back-link">Back to Recipe Finder</a>
+    </div>
+
+    <script>
+        const API_KEY = '76eb0d4236884058b084675d4fe93d49'; // Using the same API key from script.js
+
+        // Helper function to get query parameters from URL
+        function getQueryParam(param) {
+            const params = new URLSearchParams(window.location.search);
+            return params.get(param);
+        }
+
+        // Extract the recipe ID from the URL
+        const recipeId = getQueryParam("recipeId");
+
+        if (!recipeId) {
+            document.getElementById('instructions').innerHTML = "<p>Error: No recipe ID provided.</p>";
+        } else {
+            // First, get the recipe information to display the title
+            fetch(`https://api.spoonacular.com/recipes/${recipeId}/information?apiKey=${API_KEY}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(recipeInfo => {
+                    // Display the recipe title
+                    const titleDiv = document.getElementById('recipe-title');
+                    titleDiv.innerHTML = `<h2>${recipeInfo.title}</h2>`;
+                    
+                    // If there's an image, display it
+                    if (recipeInfo.image) {
+                        const img = document.createElement('img');
+                        img.src = recipeInfo.image;
+                        img.alt = recipeInfo.title;
+                        img.style.maxWidth = '100%';
+                        img.style.borderRadius = '8px';
+                        img.style.marginBottom = '20px';
+                        titleDiv.appendChild(img);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching recipe information:', error);
+                });
+
+            // Get the analyzed instructions
+            fetch(`https://api.spoonacular.com/recipes/${recipeId}/analyzedInstructions?apiKey=${API_KEY}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const instructionsDiv = document.getElementById('instructions');
+                    instructionsDiv.innerHTML = ""; // Clear loading message
+
+                    if (!data.length) {
+                        instructionsDiv.innerHTML = "<p>No instructions available for this recipe.</p>";
+                        return;
+                    }
+
+                    // Loop through each instruction group
+                    data.forEach((group, groupIndex) => {
+                        if (group.name) {
+                            const groupTitle = document.createElement("h3");
+                            groupTitle.textContent = group.name;
+                            groupTitle.style.color = "#ff5722";
+                            instructionsDiv.appendChild(groupTitle);
+                        }
+
+                        // Check if steps exist
+                        if (group.steps && group.steps.length) {
+                            group.steps.forEach((step, index) => {
+                                const stepDiv = document.createElement("div");
+                                stepDiv.className = "instruction-step";
+                                
+                                // Format each step: numbering and step description
+                                stepDiv.innerHTML = `<strong>Step ${step.number}:</strong> ${step.step}`;
+                                instructionsDiv.appendChild(stepDiv);
+                            });
+                        } else {
+                            // Fallback if no steps are present
+                            instructionsDiv.innerHTML += "<p>No detailed steps available.</p>";
+                        }
+                    });
+                })
+                .catch(error => {
+                    document.getElementById('instructions').innerHTML = `<p>Error fetching instructions: ${error.message}</p>`;
+                });
+        }
+    </script>
+</body>
+</html> 
