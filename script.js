@@ -9,7 +9,7 @@ function getRecipes() {
         return;
     }
 
-    const url = `${API_URL}&ingredients=${ingredients.replace(/\s+/g, ',')}&number=50`;
+    const url = `${API_URL}&ingredients=${ingredients.replace(/\s+/g, ',')}&number=10`;
 
     fetch(url)
         .then(response => response.json())
@@ -22,10 +22,10 @@ function getRecipes() {
 
 function displayRecipes(recipes) {
     const recipesContainer = document.getElementById('recipes');
-    recipesContainer.innerHTML = ''; 
+    recipesContainer.innerHTML = '';  // Clear previous results
 
     if (recipes.length === 0) {
-        recipesContainer.innerHTML = '<p>No recipes found. Try different ingredients!</p>';
+        recipesContainer.innerHTML = '<p class="title">No recipes found. Try different ingredients!</p>';
         return;
     }
 
@@ -34,15 +34,19 @@ function displayRecipes(recipes) {
         recipeCard.classList.add('recipe-card');
         
         const recipeImage = recipe.image ? `<img src="${recipe.image}" alt="${recipe.title}">` : '';
-        const recipeLink = `<a class = "link" href="https://spoonacular.com/recipes/${recipe.title.replace(/\s+/g, '-')}-${recipe.id}" target="_blank">
-                            <button class="btn">See Full Recipe</button>
-                            </a>`;
-
+        
         recipeCard.innerHTML = `
             ${recipeImage}
-            <h3 class = "title">${recipe.title}</h3>
-            <p class = "info">Ingredients used: ${recipe.usedIngredients.map(ingredient => ingredient.name).join(', ')}</p>
-            ${recipeLink}
+            <h3>${recipe.title}</h3>
+            <p class="info">Ingredients used: ${recipe.usedIngredients.map(ingredient => ingredient.name).join(', ')}</p>
+            <div class="recipe-actions">
+                <a href="https://spoonacular.com/recipes/${recipe.title.replace(/\s+/g, '-')}-${recipe.id}" target="_blank" class="link">
+                    <button class="btn">See Full Recipe</button>
+                </a>
+                <a href="instructions.html?recipeId=${recipe.id}" class="link">
+                    <button class="btn">Instructions</button>
+                </a>
+            </div>
         `;
 
         recipesContainer.appendChild(recipeCard);
